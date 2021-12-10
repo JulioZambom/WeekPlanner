@@ -43,11 +43,20 @@ export default function HomeForm({ navigateLogin }){
     }
 
     const handleCreateWorkout = async () => {
+        const hasWorkout = workouts.some((workout) => (
+            workout.name.toLowerCase() === workoutName.toLowerCase() && workout.day === chooseDay
+        ));
+
         if (workoutName === '' || chooseDay === '') {
             return AlertButton('Não deixe nenhum campo vazio');
         }
 
+        if (hasWorkout) {
+            return AlertButton('Este treino já existe');
+        }
+
         const { data } = await api.post('/workouts', { workoutName, day: chooseDay, createdAt: '1' });
+        console.log('new workout created', data);
         setWorkouts([...workouts, data.user]);
     }
 

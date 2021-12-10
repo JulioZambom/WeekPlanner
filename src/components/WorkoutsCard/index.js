@@ -7,15 +7,21 @@ import { api } from '../../Services/Api';
  
 export default function WorkoutsCard({ workoutId, workoutName, day, wasTrained, workouts, setWorkouts }){
   console.log({ workoutId });
-  setWorkouts((prevWorkouts) => (
-    prevWorkouts.map((workout, index) => {
-      const wasTrainedValue = workout.was_trained === 1 ? 0 : 1;
-      if (workout.id === wid) {
-        return {...workout, was_trained: wasTrainedValue};
-      } 
-        return {...workout};
-    })
-  ));
+  const handleToggleWorkout = async () => {
+    setWorkouts((prevWorkouts) => (
+      prevWorkouts.map((workout, index) => {
+        const wasTrainedValue = workout.was_trained === 1 ? 0 : 1;
+        if (workout.id === workoutId) {
+          return {...workout, was_trained: wasTrainedValue};
+        }
+          return {...workout};
+      })
+    ));
+
+    // Here I am toggling the value of was_trained column
+    const { data: { message } } = await api.put(`/workouts/${workoutId}`);
+    console.log({ message });
+  }
 
   const handleDeleteWorkout = async () => {
     const newWorkouts = workouts.filter((workout) => workout.id !== workoutId);
@@ -25,7 +31,20 @@ export default function WorkoutsCard({ workoutId, workoutName, day, wasTrained, 
   }
   return(
       <View
-        style={styles.boxWorkouts}
+        style={{
+          width:'90%',
+          borderRadius: 7,
+          backgroundColor: wasTrained === 1 ? '#CED4DA' : '#F8F9FA',
+          height: 80,
+          marginTop: 15,
+          marginLeft: 16,
+          paddingLeft: 10,
+          paddingRight: 10,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexDirection: 'row',
+        }}
       >
           <View style={styles.infoContainer}>
             <View style={styles.infoDiv}>
@@ -40,7 +59,7 @@ export default function WorkoutsCard({ workoutId, workoutName, day, wasTrained, 
       
           <View style={{ display: 'flex', flexDirection: 'row'}}>
               <TouchableOpacity onPress={handleToggleWorkout}>
-                <IconAnt name="checkcircle" style={{ color: '#0A1A15' }} size={22} />
+                <IconAnt name="checkcircle" style={{ color: wasTrained === 1 ? '#59E3BA' : '#0A1A15' }} size={22} />
               </TouchableOpacity>
               
               <TouchableOpacity onPress={handleDeleteWorkout}>
