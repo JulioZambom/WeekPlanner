@@ -44,12 +44,13 @@ export default function WorkoutsCard({ workoutId, workoutName, day, wasTrained, 
           justifyContent: 'space-between',
           alignItems: 'center',
           flexDirection: 'row',
+          
         }}
       >
           <View style={styles.infoContainer}>
             <View style={styles.infoDiv}>
               <IconFontAwesome name="dumbbell" style={{ width: 17 }} size={14} />
-              <Text style={{ marginLeft: 8, fontWeight: 'bold' }}>{workoutName}</Text>
+              <Text style={{ marginLeft: 8, fontWeight: 'bold', overflow: 'hidden' }}>{workoutName}</Text>
             </View>
             <View style={styles.infoDiv}>
               <IconFontAwesome name="calendar" style={{ width: 17 }} size={14} />

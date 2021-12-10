@@ -18,12 +18,18 @@ const styles = StyleSheet.create({
 
     infoContainer: {
         display: 'flex',
+        overflow: 'hidden',
+        flexGrow: 1,
+        marginRight: 8
     }, 
     infoDiv:  {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        alignItems: 'center'
+        alignItems: 'center',
+        overflow: 'hidden',
+        width: '100%',
+        
     }
 })
 

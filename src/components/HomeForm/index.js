@@ -51,6 +51,10 @@ export default function HomeForm({ navigateLogin }){
             return AlertButton('Não deixe nenhum campo vazio');
         }
 
+        if (workoutName.length > 48) {
+            return AlertButton('Nome muito grande');
+        }
+
         if (hasWorkout) {
             return AlertButton('Este treino já existe');
         }
@@ -59,7 +63,6 @@ export default function HomeForm({ navigateLogin }){
         console.log('new workout created', data);
         setWorkouts([...workouts, data.user]);
     }
-
 
     return(
     <SafeAreaView style={styles.boxForm}>
